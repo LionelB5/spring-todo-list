@@ -1,7 +1,7 @@
 # Spring MVC
 
 ## What is the Spring MVC Framework?
-Spring Web MVC is an original web framework built on the Servlet API.
+Spring Web MVC is a web framework built on the Servlet API.
 
 Spring Web MVC has shipped in the Spring Framework from the very beginning and is **more commonly known as Spring MVC**.
 
