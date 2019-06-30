@@ -77,3 +77,55 @@ install anything on your computer (Spring Boot is somewhat similar in this regar
 - An example Cargo goal is the `cargo:run` goal, which will start an embedded Apache Tomcat servlet container, and will 
 deploy our web application to this container. With the default settings, once this goal is executed, we can access the 
 root of our web application by `http://localhost:8080/<application-name>/index.html`.
+
+## The Spring MVC Dispatcher Servlet
+
+**The Dispatcher Servlet is the front facing controller of Spring MVC and is used to dispatch HTTP requests to other 
+controllers.**
+
+There are two ways to register a servlet in an application:
+- One way is to use a `web.xml` file (XML based configuration)
+- A Dispatcher Servlet may also be registered programmatically (Java code based configuration)
+
+To programmatically register a servlet, we must implement the `WebApplicationInitializer` interface.
+- Implementations of this interface are automatically detected by Spring on startup of the application.
+
+The following is an example of a class that implements this interface. Note the `WebConfig` class would usually be in a 
+separate file.
+
+```
+public class WellAppInitializer implements WebApplicationInitializer {
+
+    private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        // create the spring application context
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(WebConfig.class);
+
+        // create the dispatcher servlet
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+
+        // register and configure the dispatcher servlet
+        ServletRegistration.Dynamic registration =
+                servletContext.addServlet(DISPATCHER_SERVLET_NAME, dispatcherServlet);
+                
+        // configure startup loading of the servlet so that the container will instantiate and initialize the servlet
+        registration.setLoadOnStartup(1);
+        
+        // a simple URL mapping that does not point to a controller
+        registration.addMapping("/");
+    }
+}
+
+@EnableWebMvc
+@Configuration
+@ComponentScan(basePackages = "lionel.learnspring")
+public class WebConfig  {
+}
+```
+
+**The `@EnableWebMvc` annotation**
+- This annotation is used with the configuration class to import the Spring MVC configuration.
+- By default this annotation registers some beans that are specific to Spring MVC (for example, the view resolver, 
+request mapper etc.)
