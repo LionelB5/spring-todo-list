@@ -70,3 +70,10 @@ its files and display them to the user.
 - It declares which servlets exist and which URLs they handle
 - **This declaration and handling can also be achieved through the use of annotations**
 
+## The Maven Cargo plugin
+With the Maven Cargo plugin, we can use goals to manipulate WAR projects within the Apache Tomcat servlet container.
+- One of the best things about this is that we can run Apache Tomcat in embedded mode, meaning there is no need to 
+install anything on your computer (Spring Boot is somewhat similar in this regard).
+- An example Cargo goal is the `cargo:run` goal, which will start an embedded Apache Tomcat servlet container, and will 
+deploy our web application to this container. With the default settings, once this goal is executed, we can access the 
+root of our web application by `http://localhost:8080/<application-name>/index.html`.
