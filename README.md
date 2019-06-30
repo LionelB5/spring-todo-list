@@ -89,9 +89,11 @@ There are two ways to register a servlet in an application:
 
 To programmatically register a servlet, we must implement the `WebApplicationInitializer` interface.
 - Implementations of this interface are automatically detected by Spring on startup of the application.
+- Implementors of this interface are expected to implement the `onStartup` method that is invoked during Servlet container startup.
+- Within the `onStartup` method we are able to programmatically create and configure our Dispatcher Servlet.
 
-The following is an example of a class that implements this interface. Note the `WebConfig` class would usually be in a 
-separate file.
+The following is an example of a class that implements this interface. *Note the `WebConfig` class would usually be in a 
+separate file.*
 
 ```
 public class WellAppInitializer implements WebApplicationInitializer {
