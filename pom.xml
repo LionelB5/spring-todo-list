@@ -7,6 +7,7 @@
     <groupId>lionel.learnspring</groupId>
     <artifactId>todo-list</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <logback.version>1.2.3</logback.version>
@@ -60,6 +61,15 @@
                     <target>${java.version}</target>
                     <source>${java.version}</source>
                     <release>${java.version}</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
