@@ -131,3 +131,19 @@ public class WebConfig  {
 - This annotation is used with the configuration class to import the Spring MVC configuration.
 - By default this annotation registers some beans that are specific to Spring MVC (for example, the view resolver, 
 request mapper etc.)
+
+## The `@Controller` annotation
+Spring MVC is designed around the Dispatcher Servlet which plays the role of Front Controller.
+
+We can map requests to methods in classes annotated with `@Controller` (a specialized type of the `@Component` 
+annotation). These classes are known as annotated controllers or controller classes.
+
+Spring MVC provides an annotation-based programming model where `@Controller` and `@RestController` components
+use annotations to express request mappings, request input, exception handling, and more.
+- Annotated controllers have flexible method signatures and do not have to extend base classes or implement specific 
+interfaces.
+
+The `@RequestMapping` annotation is used to map requests to controller methods.
+- It has various attributes to match by URL, HTTP method, requests parameters, headers and media types.
+- Shortcut variants of `@RequestMapping` exist and map to different request methods, for example `@GetMapping`, 
+`@PostMapping`, `@PutMapping` etc.
