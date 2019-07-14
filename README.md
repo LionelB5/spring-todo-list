@@ -147,3 +147,57 @@ The `@RequestMapping` annotation is used to map requests to controller methods.
 - It has various attributes to match by URL, HTTP method, requests parameters, headers and media types.
 - Shortcut variants of `@RequestMapping` exist and map to different request methods, for example `@GetMapping`, 
 `@PostMapping`, `@PutMapping` etc.
+
+
+## The View Resolver and View
+Spring MVC defines ViewResolver and View interfaces which enable us to render models in a browser without forcing the 
+use of a specific view technology (JSP (Java Server Pages), Thymeleaf, Freemarker etc.).
+
+`ViewResolver` provides mapping between view names and actual views.
+- We can declare a bean that returns a `ViewResolver` within a class decorated with the `@Configuration` annotation.
+- In this bean we can configure the view resolver, and set things like a prefix and suffix to use when resolving the 
+location of a view to be rendered.
+
+The following example demonstrates a few things:
+- Declaring a `ViewResolver` bean and configuring a suffix and prefix for the `ViewResolver` instance.
+- A Controller with a method decorated by `RequestMapping` that returns the name of the view file we wish to render
+- This example relies on a JSP file being present: `/webapp/WEB-INF/view/welcome.jsp`
+- Imports omitted for brevity, classes should reside in separate files
+
+```
+@EnableWebMvc
+@Configuration
+@ComponentScan(basePackages = "lionel.learnspring")
+public class WebConfig  {
+
+    public static final String RESOLVER_PREFIX = "/WEB-INF/view/";
+    public static final String RESOLVER_SUFFIX = ".jsp";
+
+    @Bean
+    public ViewResolver viewResolver() {
+        UrlBasedViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix(RESOLVER_PREFIX);
+        viewResolver.setSuffix(RESOLVER_SUFFIX);
+        return viewResolver;
+    }
+}
+
+@Controller
+public class HelloWorldController {
+
+    // http://localhost:8080/todo-list/welcome
+    // prefix + name + suffix
+    // /WEB-INF/view/welcome.jsp
+    @GetMapping("welcome")
+    public String welcome() {
+        return "welcome";
+    }
+}
+
+```
+
+`JSP` is a text document that contains two types of text:
+- Static data, which can be expressed in any text-based format (such as HTML).
+- JSP elements, which construct dynamic content.
+- The JavaServer Pages Standard Tag Library (JSTL) is a useful library that extends the JSP specifications by adding 
+a library of JSP tags for common tasks like loops etc.
