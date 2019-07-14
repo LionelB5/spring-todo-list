@@ -201,3 +201,49 @@ public class HelloWorldController {
 - JSP elements, which construct dynamic content.
 - The JavaServer Pages Standard Tag Library (JSTL) is a useful library that extends the JSP specifications by adding 
 a library of JSP tags for common tasks like loops etc.
+
+## Spring MVC Request Processing
+
+```
++-------------+                                                          +--------------+
+|             |                                                          |              |
+|   Request   |                                                          |   Response   |
+|             |                                                          |              |
++-----+-------+                                                          +------+-------+
+      |                                                                         ^
+      |                                                                         |
+      | 1                                                                       | 10
+      |                                                                         |
+      v                                                                         |
++-----+-------------------------------------------------------------------------+-------+
+|                                                                                       |
+|                                                                                       |
+|                                       Dispatcher Servlet                              |
+|                                                                                       |
+|                                                                                       |
++--+----------------+------+-------------------+------+---------------+--------+------+-+
+   |                ^      |                   ^      |               ^        |      ^
+   |                |      |                   |      |               |        |      |
+   | 2              | 3    | 4                 | 5    | 6             | 7      | 8    | 9
+   |                |      |                   |      |               |        |      |
+   v                |      v                   |      v               |        v      |
++--+----------------+-+  +-+-------------------+-+  +-+---------------+-+    +-+------+-+
+|                     |  |                       |  |                   |    |          |
+|   Handler Mapping   |  |   Handler Controller  |  |   View Resolver   |    |   View   |
+|                     |  |                       |  |                   |    |          |
++---------------------+  +-----------------------+  +-------------------+    +----------+
+
+```
+1. The browser creates a request to a specific url and the dispatcher servlet begins to handle the request from the 
+browser.
+2. The dispatcher servlet has to identify which controller should be used to handle the request. This is achieved via 
+Handler Mapping to find the correct controller.
+3. Handler mapping returns the specific handler method that should handle the request.
+4. The dispatcher servlet calls this specific handler method.
+5. The handler method returns the model and the view name.
+6. The dispatcher servlet now has the logical view name, but it still needs to determine the view file to use. To 
+achieve this, it finds the view resolver that we configured and calls using the logical view name.
+7. The view resolver locates the target view file and returns it to the dispatcher servlet.
+8. The dispatcher servlet executes the view and makes the model available to the view.
+9. The view is now rendered and the view returns the content to the dispatcher servlet.
+10. The dispatcher servlet sends the response back to the browser.
