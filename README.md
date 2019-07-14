@@ -269,8 +269,8 @@ in by the dispatcher servlet.
 - The return value of these functions determine the value to be set on the model object.
 - The annotation can accept a single String argument which dictates what the key on the model for the value will be.
 
-## Request Parameters
-To read request parameters from the query string we can use the `@RequestParam` annotation to decorate arguments that 
+## Query Parameters
+To read parameters from the query string we can use the `@RequestParam` annotation to decorate arguments that 
 our controller function accepts.
 - The annotation accepts optional arguments that allow you to configure whether the parameter is required, its default 
 value etc.
