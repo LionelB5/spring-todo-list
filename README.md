@@ -96,7 +96,7 @@ The following is an example of a class that implements this interface. *Note the
 separate file.*
 
 ```
-public class WellAppInitializer implements WebApplicationInitializer {
+public class WebAppInitializer implements WebApplicationInitializer {
 
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
     @Override
