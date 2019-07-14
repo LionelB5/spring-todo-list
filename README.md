@@ -268,3 +268,12 @@ in by the dispatcher servlet.
 - These methods are always executed first, before the appropriate request method is called.
 - The return value of these functions determine the value to be set on the model object.
 - The annotation can accept a single String argument which dictates what the key on the model for the value will be.
+
+## Request Parameters
+To read request parameters from the query string we can use the `@RequestParam` annotation to decorate arguments that 
+our controller function accepts.
+- The annotation accepts optional arguments that allow you to configure whether the parameter is required, its default 
+value etc.
+- The name of the parameter decorated with this annotation will determine the key of the request parameter that is 
+searched for in the query string. An exception to this is if one provides `name` as an argument to the `@RequestParam` 
+constructor.
