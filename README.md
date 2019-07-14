@@ -247,3 +247,24 @@ achieve this, it finds the view resolver that we configured and calls using the 
 8. The dispatcher servlet executes the view and makes the model available to the view.
 9. The view is now rendered and the view returns the content to the dispatcher servlet.
 10. The dispatcher servlet sends the response back to the browser.
+
+## Model and Model Attributes
+
+The model interface defines a holder for model attributes and is primarily designed for adding attributes to the model.
+The model is exposed to the view, meaning the view can access the attributes of the model.
+
+There are two main ways we can add attributes to the model.
+
+*Accessing the model object in the requests method within our controller*
+- Request methods can accept many different parameters. One supported parameter is the `model` parameter of type 
+`Model`.
+- This parameter will be passed to this request method once it is called by the dispatcher servlet.
+- The model can be seen as a key -> value store.
+- Adding an attribute to a model is as simple as calling the `addAttribtue` method on the instance of the Model passed 
+in by the dispatcher servlet.
+
+*Declare methods on the controller and decorate them with the `@ModelAttribute` annotation*
+- Methods decorated with this annotation are run each time the controller is invoked to handle a request.
+- These methods are always executed first, before the appropriate request method is called.
+- The return value of these functions determine the value to be set on the model object.
+- The annotation can accept a single String argument which dictates what the key on the model for the value will be.
